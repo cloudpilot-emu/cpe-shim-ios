@@ -6,4 +6,4 @@ the PWA into a native application.
 
 # Credits 
 
-Based on the shim code from [PWABuulder](https://www.pwabuilder.com);
+Based on the shim code from [PWABuilder](https://www.pwabuilder.com);
