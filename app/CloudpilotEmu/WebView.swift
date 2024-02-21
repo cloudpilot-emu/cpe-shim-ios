@@ -151,19 +151,7 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
 
         if let requestUrl = navigationAction.request.url{
             if let requestHost = requestUrl.host {
-                // NOTE: Match auth origin first, because host origin may be a subset of auth origin and may therefore always match
-                let matchingAuthOrigin = authOrigins.first(where: { requestHost.range(of: $0) != nil })
-                if (matchingAuthOrigin != nil) {
-                    decisionHandler(.allow)
-                    if (toolbarView.isHidden) {
-                        toolbarView.isHidden = false
-                        webView.frame = calcWebviewFrame(webviewView: webviewView, toolbarView: toolbarView)
-                    }
-                    return
-                }
-
-                let matchingHostOrigin = allowedOrigins.first(where: { requestHost.range(of: $0) != nil })
-                if (matchingHostOrigin != nil) {
+                if (requestUrl.absoluteString.starts(with: rootUrl.absoluteString) && navigationAction.targetFrame != nil) {
                     // Open in main webview
                     decisionHandler(.allow)
                     if (!toolbarView.isHidden) {
@@ -172,6 +160,7 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
                     }
                     return
                 }
+                
                 if (navigationAction.navigationType == .other &&
                     navigationAction.value(forKey: "syntheticClickType") as! Int == 0 &&
                     (navigationAction.targetFrame != nil) &&
@@ -184,7 +173,6 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
                 else {
                     decisionHandler(.cancel)
                 }
-
 
                 if ["http", "https"].contains(requestUrl.scheme?.lowercased() ?? "") {
                     // Can open with SFSafariViewController

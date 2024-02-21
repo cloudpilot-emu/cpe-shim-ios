@@ -14,11 +14,6 @@ let rootUrl = URL(string: "https://cloudpilot-emu.github.io/app-preview/index.ht
 // This should also appear in Info.plist
 let allowedOrigins: [String] = ["cloudpilot-emu.github.io"]
 
-// auth origins will open in modal and show toolbar for back into the main origin.
-// These should also appear in Info.plist
-let authOrigins: [String] = []
-// allowedOrigins + authOrigins <= 10
-
 let platformCookie = Cookie(name: "app-platform", value: "iOS App Store")
 
 // UI options
