@@ -8,7 +8,7 @@ struct Cookie {
 let gcmMessageIDKey = "00000000000" // update this with actual ID if using Firebase 
 
 // URL for first launch
-let rootUrl = URL(string: "https://cloudpilot-emu.github.io/app-preview/index.html")!
+let rootUrl = URL(string:  UserDefaults.standard.bool(forKey: "USE_PREVIEW_BUILD") ? "https://cloudpilot-emu.github.io/app-preview/index.html" : "https://cloudpilot-emu.github.io/app/index.html")!
 
 // allowed origin is for what we are sticking to pwa domain
 // This should also appear in Info.plist

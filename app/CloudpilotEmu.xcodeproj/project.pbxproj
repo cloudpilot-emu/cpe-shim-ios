@@ -17,6 +17,7 @@
 		6D45CAEC7CC80E0D428769A1 /* Pods_CloudpilotEmu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61E4F923BAABFD50B5F050 /* Pods_CloudpilotEmu.framework */; };
 		CDC0FE292388222C002C8D56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC0FE252388222B002C8D56 /* Main.storyboard */; };
 		CDC0FE2A2388222C002C8D56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC0FE272388222B002C8D56 /* LaunchScreen.storyboard */; };
+		E03939302B85DF3400D8BC00 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E039392F2B85DF3400D8BC00 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		CDC0FE262388222B002C8D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CloudpilotEmu/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CDC0FE282388222B002C8D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CloudpilotEmu/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE61E4F923BAABFD50B5F050 /* Pods_CloudpilotEmu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudpilotEmu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E039392F2B85DF3400D8BC00 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = CloudpilotEmu/Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 			children = (
 				595F23A225CEFBFE0053416C /* AppDelegate.swift */,
 				595F239C25CEFBFD0053416C /* Assets.xcassets */,
+				E039392F2B85DF3400D8BC00 /* Settings.bundle */,
 				595F239B25CEFBFD0053416C /* Entitlements */,
 				595F23A025CEFBFE0053416C /* Info.plist */,
 				595F239D25CEFBFD0053416C /* SceneDelegate.swift */,
@@ -146,6 +149,7 @@
 			files = (
 				595F23A625CEFBFE0053416C /* Entitlements in Resources */,
 				CDC0FE292388222C002C8D56 /* Main.storyboard in Resources */,
+				E03939302B85DF3400D8BC00 /* Settings.bundle in Resources */,
 				CDC0FE2A2388222C002C8D56 /* LaunchScreen.storyboard in Resources */,
 				595F23A725CEFBFE0053416C /* Assets.xcassets in Resources */,
 			);
