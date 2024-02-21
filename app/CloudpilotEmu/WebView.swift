@@ -18,7 +18,7 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
     config.preferences.javaScriptCanOpenWindowsAutomatically = true
     config.preferences.setValue(true, forKey: "standalone")
     
-    let webView = WKWebView(frame: calcWebviewFrame(webviewView: container, toolbarView: nil), configuration: config)
+    let webView = WKWebView(frame: calcWebviewFrame(webviewView: container), configuration: config)
     
     setCustomCookie(webView: webView)
 
@@ -104,31 +104,26 @@ func setCustomCookie(webView: WKWebView) {
 
 }
 
-func calcWebviewFrame(webviewView: UIView, toolbarView: UIToolbar?) -> CGRect{
-    if ((toolbarView) != nil) {
-        return CGRect(x: 0, y: toolbarView!.frame.height, width: webviewView.frame.width, height: webviewView.frame.height - toolbarView!.frame.height)
-    }
-    else {
-        let winScene = UIApplication.shared.connectedScenes.first
-        let windowScene = winScene as! UIWindowScene
-        var statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
-
-        switch displayMode {
-        case "fullscreen":
-            #if targetEnvironment(macCatalyst)
-                if let titlebar = windowScene.titlebar {
-                    titlebar.titleVisibility = .hidden
-                    titlebar.toolbar = nil
-                }
-            #endif
-            return CGRect(x: 0, y: 0, width: webviewView.frame.width, height: webviewView.frame.height)
-        default:
-            #if targetEnvironment(macCatalyst)
-            statusBarHeight = 29
-            #endif
-            let windowHeight = webviewView.frame.height - statusBarHeight
-            return CGRect(x: 0, y: statusBarHeight, width: webviewView.frame.width, height: windowHeight)
+func calcWebviewFrame(webviewView: UIView) -> CGRect{
+    let winScene = UIApplication.shared.connectedScenes.first
+    let windowScene = winScene as! UIWindowScene
+    var statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
+    
+    switch displayMode {
+    case "fullscreen":
+#if targetEnvironment(macCatalyst)
+        if let titlebar = windowScene.titlebar {
+            titlebar.titleVisibility = .hidden
+            titlebar.toolbar = nil
         }
+#endif
+        return CGRect(x: 0, y: 0, width: webviewView.frame.width, height: webviewView.frame.height)
+    default:
+#if targetEnvironment(macCatalyst)
+        statusBarHeight = 29
+#endif
+        let windowHeight = webviewView.frame.height - statusBarHeight
+        return CGRect(x: 0, y: statusBarHeight, width: webviewView.frame.width, height: windowHeight)
     }
 }
 
@@ -154,10 +149,6 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
                 if (requestUrl.absoluteString.starts(with: rootUrl.absoluteString) && navigationAction.targetFrame != nil) {
                     // Open in main webview
                     decisionHandler(.allow)
-                    if (!toolbarView.isHidden) {
-                        toolbarView.isHidden = true
-                        webView.frame = calcWebviewFrame(webviewView: webviewView, toolbarView: nil)
-                    }
                     return
                 }
                 

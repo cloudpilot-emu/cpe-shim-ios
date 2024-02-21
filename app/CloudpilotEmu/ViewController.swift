@@ -14,7 +14,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var connectionProblemView: UIImageView!
     @IBOutlet weak var webviewView: UIView!
-    var toolbarView: UIToolbar!
     
     var htmlIsLoaded = false;
     
@@ -34,7 +33,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     override func viewDidLoad() {
         super.viewDidLoad()
         initWebView()
-        initToolbarView()
         loadRootUrl()
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification , object: nil)
@@ -43,7 +41,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        CloudpilotEmu.webView.frame = calcWebviewFrame(webviewView: webviewView, toolbarView: nil)
+        CloudpilotEmu.webView.frame = calcWebviewFrame(webviewView: webviewView)
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
@@ -77,31 +75,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         CloudpilotEmu.webView?.reload()
         sender.endRefreshing()
     }
-
-    func createToolbarView() -> UIToolbar{
-        let winScene = UIApplication.shared.connectedScenes.first
-        let windowScene = winScene as! UIWindowScene
-        var statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 60
-        
-        #if targetEnvironment(macCatalyst)
-        if (statusBarHeight == 0){
-            statusBarHeight = 30
-        }
-        #endif
-        
-        let toolbarView = UIToolbar(frame: CGRect(x: 0, y: 0, width: webviewView.frame.width, height: 0))
-        toolbarView.sizeToFit()
-        toolbarView.frame = CGRect(x: 0, y: 0, width: webviewView.frame.width, height: toolbarView.frame.height + statusBarHeight)
-//        toolbarView.autoresizingMask = [.flexibleTopMargin, .flexibleRightMargin, .flexibleWidth]
-        
-        let flex = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let close = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(loadRootUrl))
-        toolbarView.setItems([close,flex], animated: true)
-        
-        toolbarView.isHidden = true
-        
-        return toolbarView
-    }
     
     func overrideUIStyle(toDefault: Bool = false) {
         if #available(iOS 15.0, *), adaptiveUIStyle {
@@ -113,12 +86,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
                     .first { $0.isKeyWindow }?.overrideUserInterfaceStyle = toDefault ? .unspecified : self.currentWebViewTheme;
             }
         }
-    }
-    
-    func initToolbarView() {
-        toolbarView =  createToolbarView()
-        
-        webviewView.addSubview(toolbarView)
     }
     
     @objc func loadRootUrl() {
