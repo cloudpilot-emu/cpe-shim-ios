@@ -3,6 +3,7 @@ import WebKit
 import AuthenticationServices
 import SafariServices
 
+private var downloadDir: URL?
 
 func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> WKWebView{
 
@@ -44,7 +45,43 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
     }
     #endif
     
+    downloadDir = setupDownloadsDirectory()
+    print("temporary download area is \(getDownloadDir().path)")
+    
     return webView
+}
+
+func getDownloadDir() -> URL {
+    return downloadDir ?? FileManager.default.temporaryDirectory
+}
+
+func setupDownloadsDirectory() -> URL? {
+    let fileManager = FileManager.default
+    let downloadDirectory = fileManager.temporaryDirectory.appendingPathComponent("cpe-downloads");
+    
+    var exists = fileManager.fileExists(atPath: downloadDirectory.path)
+
+    if (exists) {
+        do {
+            try fileManager.removeItem(at: downloadDirectory)
+        } catch {
+            print("\(downloadDirectory.path) exists and cannot be removed: \(error)")
+            return nil
+        }
+        
+        exists = false
+    }
+    
+    if (!exists) {
+        do {
+            try fileManager.createDirectory(at: downloadDirectory, withIntermediateDirectories: true)
+        } catch {
+            print("failed to create downloads directory at \(downloadDirectory.path): \(error)")
+            return nil
+        }
+    }
+    
+    return downloadDirectory
 }
 
 func setAppStoreAsReferrer(contentController: WKUserContentController) {
@@ -360,8 +397,7 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
                 suggestedFilename: String,
                 completionHandler: @escaping (URL?) -> Void) {
 
-        let documentsPath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileURL = documentsPath.appendingPathComponent(suggestedFilename)
+        let fileURL = getDownloadDir().appendingPathComponent(suggestedFilename)
 
         self.openFile(url: fileURL)
         completionHandler(fileURL)
