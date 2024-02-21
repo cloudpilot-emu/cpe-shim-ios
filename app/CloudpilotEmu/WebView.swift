@@ -30,7 +30,7 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
 
     webView.scrollView.bounces = false
     webView.scrollView.contentInsetAdjustmentBehavior = .never
-    webView.allowsBackForwardNavigationGestures = true
+    webView.allowsBackForwardNavigationGestures = false
     
     let deviceModel = UIDevice.current.model
     let osVersion = UIDevice.current.systemVersion
@@ -39,11 +39,9 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
 
     webView.addObserver(NSO, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: NSKeyValueObservingOptions.new, context: nil)
     
-    #if DEBUG
     if #available(iOS 16.4, *) {
         webView.isInspectable = true
     }
-    #endif
     
     downloadDir = setupDownloadsDirectory()
     print("temporary download area is \(getDownloadDir().path)")
@@ -92,7 +90,7 @@ func setAppStoreAsReferrer(contentController: WKUserContentController) {
 
 func setCustomCookie(webView: WKWebView) {
     let _platformCookie = HTTPCookie(properties: [
-        .domain: rootUrl.host!,
+        .domain: getRootUrl().host!,
         .path: "/",
         .name: platformCookie.name,
         .value: platformCookie.value,
@@ -110,18 +108,10 @@ func calcWebviewFrame(webviewView: UIView) -> CGRect{
     var statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
     
     switch displayMode {
-    case "fullscreen":
-#if targetEnvironment(macCatalyst)
-        if let titlebar = windowScene.titlebar {
-            titlebar.titleVisibility = .hidden
-            titlebar.toolbar = nil
-        }
-#endif
+        case "fullscreen":
         return CGRect(x: 0, y: 0, width: webviewView.frame.width, height: webviewView.frame.height)
+        
     default:
-#if targetEnvironment(macCatalyst)
-        statusBarHeight = 29
-#endif
         let windowHeight = webviewView.frame.height - statusBarHeight
         return CGRect(x: 0, y: statusBarHeight, width: webviewView.frame.width, height: windowHeight)
     }
@@ -145,8 +135,8 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
         }
 
         if let requestUrl = navigationAction.request.url{
-            if let requestHost = requestUrl.host {
-                if (requestUrl.absoluteString.starts(with: rootUrl.absoluteString) && navigationAction.targetFrame != nil) {
+            if requestUrl.host != nil {
+                if (requestUrl.absoluteString.starts(with: getRootUrl().absoluteString) && navigationAction.targetFrame != nil) {
                     // Open in main webview
                     decisionHandler(.allow)
                     return
@@ -187,9 +177,6 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
                         // not tested
                         downloadAndOpenFile(url: requestUrl.absoluteURL)
                     }
-                    // if (requestUrl.absoluteString.contains("base64")){
-                    //     downloadAndOpenBase64File(base64String: requestUrl.absoluteString)
-                    // }
                 }
             }
         }
@@ -331,32 +318,6 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
         }
         task.resume()
     }
-
-    // func downloadAndOpenBase64File(base64String: String) {
-    //     // Split the base64 string to extract the data and the file extension
-    //     let components = base64String.components(separatedBy: ";base64,")
-
-    //     // Make sure the base64 string has the correct format
-    //     guard components.count == 2, let format = components.first?.split(separator: "/").last else {
-    //         print("Invalid base64 string format")
-    //         return
-    //     }
-
-    //     // Remove the data type prefix to get the base64 data
-    //     let dataString = components.last!
-
-    //     if let imageData = Data(base64Encoded: dataString) {
-    //         let documentsUrl: URL  =  FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    //         let destinationFileUrl = documentsUrl.appendingPathComponent("image.\(format)")
-
-    //         do {
-    //             try imageData.write(to: destinationFileUrl)
-    //             self.openFile(url: destinationFileUrl)
-    //         } catch {
-    //             print("Error writing image to file url: \(destinationFileUrl): \(error)")
-    //         }
-    //     }
-    // }
 
     func openFile(url: URL) {
         let documentController = UIDocumentInteractionController(url: url)

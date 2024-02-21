@@ -56,24 +56,12 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         
         CloudpilotEmu.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 
-        if(pullToRefresh){
-            let refreshControl = UIRefreshControl()
-            refreshControl.addTarget(self, action: #selector(refreshWebView(_:)), for: UIControl.Event.valueChanged)
-            CloudpilotEmu.webView.scrollView.addSubview(refreshControl)
-            CloudpilotEmu.webView.scrollView.bounces = true
-        }
-
         if #available(iOS 15.0, *), adaptiveUIStyle {
             themeObservation = CloudpilotEmu.webView.observe(\.underPageBackgroundColor) { [unowned self] webView, _ in
                 currentWebViewTheme = CloudpilotEmu.webView.underPageBackgroundColor.isLight() ?? true ? .light : .dark
                 self.overrideUIStyle()
             }
         }
-    }
-
-    @objc func refreshWebView(_ sender: UIRefreshControl) {
-        CloudpilotEmu.webView?.reload()
-        sender.endRefreshing()
     }
     
     func overrideUIStyle(toDefault: Bool = false) {
@@ -88,8 +76,14 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         }
     }
     
+    func reloadWebview() {
+        CloudpilotEmu.webView.load(URLRequest(url: SceneDelegate.universalLinkToLaunch ?? SceneDelegate.shortcutLinkToLaunch ?? getRootUrl()))
+    }
+    
     @objc func loadRootUrl() {
-        CloudpilotEmu.webView.load(URLRequest(url: SceneDelegate.universalLinkToLaunch ?? SceneDelegate.shortcutLinkToLaunch ?? rootUrl))
+        reloadWebview()
+        
+        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in self.reloadWebview()})
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){

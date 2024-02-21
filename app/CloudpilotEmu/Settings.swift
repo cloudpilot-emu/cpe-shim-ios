@@ -5,10 +5,7 @@ struct Cookie {
     var value: String
 }
 
-let gcmMessageIDKey = "00000000000" // update this with actual ID if using Firebase 
-
-// URL for first launch
-let rootUrl = URL(string:  UserDefaults.standard.bool(forKey: "USE_PREVIEW_BUILD") ? "https://cloudpilot-emu.github.io/app-preview/index.html" : "https://cloudpilot-emu.github.io/app/index.html")!
+let gcmMessageIDKey = "00000000000" // update this with actual ID if using Firebase
 
 // allowed origin is for what we are sticking to pwa domain
 // This should also appear in Info.plist
@@ -21,4 +18,7 @@ let displayMode = "standalone" // standalone / fullscreen.
 let adaptiveUIStyle = true     // iOS 15+ only. Change app theme on the fly to dark/light related to WebView background color.
 let overrideStatusBar = false   // iOS 13-14 only. if you don't support dark/light system theme.
 let statusBarTheme = "dark"    // dark / light, related to override option.
-let pullToRefresh = true    // Enable/disable pull down to refresh page
+
+func getRootUrl() -> URL {
+    return URL(string:  UserDefaults.standard.bool(forKey: "USE_PREVIEW_BUILD") ? "https://cloudpilot-emu.github.io/app-preview/index.html" : "https://cloudpilot-emu.github.io/app/index.html")!
+}
