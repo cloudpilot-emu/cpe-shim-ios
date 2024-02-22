@@ -105,7 +105,7 @@ func setCustomCookie(webView: WKWebView) {
 func calcWebviewFrame(webviewView: UIView) -> CGRect{
     let winScene = UIApplication.shared.connectedScenes.first
     let windowScene = winScene as! UIWindowScene
-    var statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
+    let statusBarHeight = windowScene.statusBarManager?.statusBarFrame.height ?? 0
     
     switch displayMode {
         case "fullscreen":
@@ -136,7 +136,7 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
 
         if let requestUrl = navigationAction.request.url{
             if requestUrl.host != nil {
-                if (requestUrl.absoluteString.starts(with: getRootUrl().absoluteString) && navigationAction.targetFrame != nil) {
+                if (requestUrl.absoluteString.starts(with: rootUrlStable.absoluteString) || requestUrl.absoluteString.starts(with: rootUrlPreview.absoluteString)) {
                     // Open in main webview
                     decisionHandler(.allow)
                     return

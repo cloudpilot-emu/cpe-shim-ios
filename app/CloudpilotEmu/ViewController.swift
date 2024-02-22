@@ -55,26 +55,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         CloudpilotEmu.webView.uiDelegate = self;
         
         CloudpilotEmu.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
-
-        if #available(iOS 15.0, *), adaptiveUIStyle {
-            themeObservation = CloudpilotEmu.webView.observe(\.underPageBackgroundColor) { [unowned self] webView, _ in
-                currentWebViewTheme = CloudpilotEmu.webView.underPageBackgroundColor.isLight() ?? true ? .light : .dark
-                self.overrideUIStyle()
-            }
-        }
     }
     
-    func overrideUIStyle(toDefault: Bool = false) {
-        if #available(iOS 15.0, *), adaptiveUIStyle {
-            if (((htmlIsLoaded && !CloudpilotEmu.webView.isHidden) || toDefault) && self.currentWebViewTheme != .unspecified) {
-                UIApplication
-                    .shared
-                    .connectedScenes
-                    .flatMap { ($0 as? UIWindowScene)?.windows ?? [] }
-                    .first { $0.isKeyWindow }?.overrideUserInterfaceStyle = toDefault ? .unspecified : self.currentWebViewTheme;
-            }
-        }
-    }
     
     func reloadWebview() {
         CloudpilotEmu.webView.load(URLRequest(url: SceneDelegate.universalLinkToLaunch ?? SceneDelegate.shortcutLinkToLaunch ?? getRootUrl()))
@@ -87,7 +69,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             CloudpilotEmu.webView.isHidden = true
             self.loadingView.isHidden = false
             self.setProgress(0.0, false)
-            self.overrideUIStyle(toDefault: true);
             self.htmlIsLoaded = false
             self.animateConnectionProblem(false)
             
@@ -106,17 +87,13 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             self.loadingView.isHidden = true
            
             self.setProgress(0.0, false)
-            
-            self.overrideUIStyle()
-        }
+                    }
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         htmlIsLoaded = false;
         
         if (error as NSError)._code != (-999) {
-            self.overrideUIStyle(toDefault: true);
-
             webView.isHidden = true;
             loadingView.isHidden = false;
             animateConnectionProblem(true);
