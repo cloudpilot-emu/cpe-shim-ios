@@ -15,7 +15,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     @IBOutlet weak var connectionProblemView: UIImageView!
     @IBOutlet weak var webviewView: UIView!
     
-    var htmlIsLoaded = false;
+    var htmlIsLoaded = false
+    var isAnimatingConnectionProblem = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,12 +54,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         reloadWebview()
         
         NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in
-            CloudpilotEmu.webView.isHidden = true
-            self.loadingView.isHidden = false
-            self.setProgress(0.0, false)
-            self.htmlIsLoaded = false
-            self.animateConnectionProblem(false)
-            
             self.reloadWebview()}
         )
     }
@@ -74,7 +69,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             self.loadingView.isHidden = true
            
             self.setProgress(0.0, false)
-                    }
+        }
     }
     
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
@@ -85,10 +80,9 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             loadingView.isHidden = false;
             animateConnectionProblem(true);
             
-            setProgress(0.05, true);
+            setProgress(0.0, true);
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.setProgress(0.1, true);
                 DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                     self.loadRootUrl();
                 }
@@ -96,8 +90,19 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         }
     }
     
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
+        if (!htmlIsLoaded) {
+            return
+        }
+            
+        CloudpilotEmu.webView.isHidden = true
+        self.loadingView.isHidden = false
+        self.htmlIsLoaded = false
+        self.animateConnectionProblem(false)
+        self.setProgress(0.0, false)
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-
         if (keyPath == #keyPath(WKWebView.estimatedProgress) &&
                 CloudpilotEmu.webView.isLoading &&
                 !self.loadingView.isHidden &&
@@ -118,6 +123,11 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     
     func animateConnectionProblem(_ show: Bool) {
         if (show) {
+            if (isAnimatingConnectionProblem) {
+                return
+            }
+            isAnimatingConnectionProblem = true
+            
             self.connectionProblemView.isHidden = false;
             self.connectionProblemView.alpha = 0
             UIView.animate(withDuration: 0.7, delay: 0, options: [.repeat, .autoreverse], animations: {
@@ -125,6 +135,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             })
         }
         else {
+            isAnimatingConnectionProblem = false
             UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: {
                 self.connectionProblemView.alpha = 0 // Here you will get the animation you want
             }, completion: { _ in
