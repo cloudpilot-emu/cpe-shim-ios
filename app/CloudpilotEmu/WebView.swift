@@ -20,8 +20,6 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
     
     let webView = WKWebView(frame: calcWebviewFrame(webviewView: container), configuration: config)
     
-    setCustomCookie(webView: webView)
-
     webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
     webView.isHidden = true;
@@ -80,26 +78,6 @@ func setupDownloadsDirectory() -> URL? {
     }
     
     return downloadDirectory
-}
-
-func setAppStoreAsReferrer(contentController: WKUserContentController) {
-    let scriptSource = "document.referrer = `app-info://platform/ios-store`;"
-    let script = WKUserScript(source: scriptSource, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
-    contentController.addUserScript(script);
-}
-
-func setCustomCookie(webView: WKWebView) {
-    let _platformCookie = HTTPCookie(properties: [
-        .domain: getRootUrl().host!,
-        .path: "/",
-        .name: platformCookie.name,
-        .value: platformCookie.value,
-        .secure: "FALSE",
-        .expires: NSDate(timeIntervalSinceNow: 31556926)
-    ])!
-
-    webView.configuration.websiteDataStore.httpCookieStore.setCookie(_platformCookie)
-
 }
 
 func calcWebviewFrame(webviewView: UIView) -> CGRect{

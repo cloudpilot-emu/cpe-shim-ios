@@ -17,19 +17,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     
     var htmlIsLoaded = false;
     
-    private var themeObservation: NSKeyValueObservation?
-    var currentWebViewTheme: UIUserInterfaceStyle = .unspecified
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        if #available(iOS 13, *), overrideStatusBar{
-            if #available(iOS 15, *) {
-                return .default
-            } else {
-                return statusBarTheme == "dark" ? .lightContent : .darkContent
-            }
-        }
-        return .default
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         initWebView()
