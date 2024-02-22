@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" image="LaunchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="I2s-HW-Q4d">
-                                <rect key="frame" x="55" y="282" width="280" height="280"/>
+                                <rect key="frame" x="91.666666666666671" y="318.66666666666669" width="206.66666666666663" height="206.66666666666669"/>
                                 <color key="tintColor" systemColor="secondarySystemFillColor"/>
                             </imageView>
                         </subviews>
@@ -36,7 +36,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchIcon" width="280" height="280"/>
+        <image name="LaunchIcon" width="206.66667175292969" height="206.66667175292969"/>
         <systemColor name="secondarySystemFillColor">
             <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
