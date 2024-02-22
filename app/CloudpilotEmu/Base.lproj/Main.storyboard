@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
@@ -14,31 +14,31 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CloudpilotEmu" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="PHY-vp-dMl" userLabel="Webview View">
-                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p0s-Fg-eGP" userLabel="Splash Background">
-                                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DIO-mU-n27" userLabel="Loading View">
-                                                <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="LaunchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="WED-Cd-vyi">
-                                                        <rect key="frame" x="91.666666666666671" y="318.66666666666669" width="206.66666666666663" height="206.66666666666669"/>
+                                                        <rect key="frame" x="103.66666666666667" y="344.66666666666669" width="206.66666666666663" height="206.66666666666669"/>
                                                     </imageView>
                                                     <imageView hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wifi.slash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="TpV-I7-c6z">
-                                                        <rect key="frame" x="184" y="595.33333333333337" width="22" height="30"/>
+                                                        <rect key="frame" x="196" y="621.33333333333337" width="22" height="30"/>
                                                         <color key="tintColor" systemColor="secondaryLabelColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="30.500000000000114" id="SGa-AZ-ZuJ"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="HfY-Ja-P0Q">
-                                                        <rect key="frame" x="112" y="651.33333333333337" width="166" height="4"/>
+                                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="HfY-Ja-P0Q">
+                                                        <rect key="frame" x="103.66666666666667" y="677.33333333333337" width="206.66666666666663" height="4"/>
                                                         <color key="backgroundColor" systemColor="secondarySystemFillColor"/>
                                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </progressView>
@@ -46,8 +46,7 @@
                                                 <viewLayoutGuide key="safeArea" id="a0B-Gx-0cO"/>
                                                 <rect key="contentStretch" x="0.0" y="1" width="0.050000000000000003" height="0.0"/>
                                                 <constraints>
-                                                    <constraint firstItem="HfY-Ja-P0Q" firstAttribute="top" secondItem="TpV-I7-c6z" secondAttribute="bottom" constant="24.666666666666629" id="0xx-3Q-YMj"/>
-                                                    <constraint firstItem="HfY-Ja-P0Q" firstAttribute="leading" secondItem="a0B-Gx-0cO" secondAttribute="leading" constant="112" id="17m-1h-dzc"/>
+                                                    <constraint firstItem="HfY-Ja-P0Q" firstAttribute="width" secondItem="WED-Cd-vyi" secondAttribute="width" id="3dn-pf-ywo"/>
                                                     <constraint firstItem="HfY-Ja-P0Q" firstAttribute="bottom" secondItem="TpV-I7-c6z" secondAttribute="bottom" constant="28.670000000000002" id="F0D-Pl-bIL"/>
                                                     <constraint firstItem="TpV-I7-c6z" firstAttribute="centerX" secondItem="DIO-mU-n27" secondAttribute="centerX" id="f8a-L8-ObP"/>
                                                     <constraint firstItem="WED-Cd-vyi" firstAttribute="centerY" secondItem="DIO-mU-n27" secondAttribute="centerY" id="kcT-9d-ZiI"/>
@@ -85,7 +84,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1035.8778625954199" y="134.50704225352112"/>
+            <point key="canvasLocation" x="1035.5555555555554" y="134.44444444444443"/>
         </scene>
     </scenes>
     <resources>
@@ -93,6 +92,9 @@
         <image name="wifi.slash" catalog="system" width="128" height="111"/>
         <systemColor name="secondaryLabelColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemFillColor">
+            <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.16" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
