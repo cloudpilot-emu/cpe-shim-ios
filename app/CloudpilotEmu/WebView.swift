@@ -4,6 +4,7 @@ import AuthenticationServices
 import SafariServices
 
 private var downloadDir: URL?
+private var downloads: Dictionary<WKDownload, URL> = [:];
 
 func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> WKWebView{
 
@@ -150,12 +151,6 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
                         UIApplication.shared.open(requestUrl)
                     }
                 }
-                else {
-                    if requestUrl.isFileURL {
-                        // not tested
-                        downloadAndOpenFile(url: requestUrl.absoluteURL)
-                    }
-                }
             }
         }
         else {
@@ -274,39 +269,6 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
         present(alert, animated: true, completion: nil)
     }
 
-    func downloadAndOpenFile(url: URL){
-        let destinationFileUrl = url
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        let request = URLRequest(url:url)
-        let task = session.downloadTask(with: request) { (tempLocalUrl, response, error) in
-            if let tempLocalUrl = tempLocalUrl, error == nil {
-                if let statusCode = (response as? HTTPURLResponse)?.statusCode {
-                    print("Successfully download. Status code: \(statusCode)")
-                }
-                do {
-                    try FileManager.default.copyItem(at: tempLocalUrl, to: destinationFileUrl)
-                    self.openFile(url: destinationFileUrl)
-                } catch (let writeError) {
-                    print("Error creating a file \(destinationFileUrl) : \(writeError)")
-                }
-            } else {
-                print("Error took place while downloading a file. Error description: \(error?.localizedDescription ?? "N/A") ")
-            }
-        }
-        task.resume()
-    }
-
-    func openFile(url: URL) {
-        let documentController = UIDocumentInteractionController(url: url)
-        
-        documentController.uti = "public.archive"
-        documentController.delegate = self
-        documentController.presentPreview(animated: true)
-        
-        self.documentController = documentController
-    }
-
     func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
         download.delegate = self
     }
@@ -314,10 +276,46 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
     func download(_ download: WKDownload, decideDestinationUsing response: URLResponse,
                 suggestedFilename: String,
                 completionHandler: @escaping (URL?) -> Void) {
-
-        let fileURL = getDownloadDir().appendingPathComponent(suggestedFilename)
-
-        self.openFile(url: fileURL)
-        completionHandler(fileURL)
+        
+        let fileUrl = getDownloadDir().appendingPathComponent(suggestedFilename)
+        
+        let fileManager = FileManager.default
+        if (fileManager.fileExists(atPath: fileUrl.path)) {            
+            do {
+                try fileManager.removeItem(at: fileUrl)
+            }
+            catch  {
+                print ("failed to remove \(fileUrl)")
+                completionHandler(nil)
+                return
+            }
+            
+        }
+        
+        downloads[download] = fileUrl
+        
+        completionHandler(fileUrl)
+    }
+    
+    func download(_ download: WKDownload, didFailWithError error: Error, resumeData: Data?) {
+        if let fileUrl = downloads[download] {
+            print("download failed for \(fileUrl.absoluteString)")
+            downloads.removeValue(forKey: download)
+        } else {
+            print("unknown download failed")
+        }
+    }
+    
+    func downloadDidFinish(_ download: WKDownload) {
+        if (downloads[download] == nil) {
+            print("downloadDidFinish with unknown download")
+            return
+        }
+        
+        let fileUrl = downloads[download]!
+        downloads.removeValue(forKey: download)
+        
+        let controller = UIActivityViewController(activityItems: [fileUrl], applicationActivities: nil)
+        present(controller, animated: true)
     }
 }
