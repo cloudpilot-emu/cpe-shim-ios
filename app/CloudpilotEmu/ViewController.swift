@@ -83,7 +83,16 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     @objc func loadRootUrl() {
         reloadWebview()
         
-        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in self.reloadWebview()})
+        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in
+            CloudpilotEmu.webView.isHidden = true
+            self.loadingView.isHidden = false
+            self.setProgress(0.0, false)
+            self.overrideUIStyle(toDefault: true);
+            self.htmlIsLoaded = false
+            self.animateConnectionProblem(false)
+            
+            self.reloadWebview()}
+        )
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
