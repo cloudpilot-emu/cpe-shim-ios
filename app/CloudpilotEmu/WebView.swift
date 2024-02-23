@@ -18,6 +18,7 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
     config.allowsInlineMediaPlayback = true
     config.preferences.javaScriptCanOpenWindowsAutomatically = true
     config.preferences.setValue(true, forKey: "standalone")
+    config.mediaTypesRequiringUserActionForPlayback = []
     
     let webView = WKWebView(frame: calcWebviewFrame(webviewView: container), configuration: config)
     
