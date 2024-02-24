@@ -156,27 +156,10 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
 }
 
-extension ViewController: WKScriptMessageHandlerWithReply, WKScriptMessageHandler {
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        
-    }
+extension ViewController: WKScriptMessageHandlerWithReply {
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) async -> (Any?, String?) {
-        switch (message.name) {
-        case "getEnableAudioOnStart":
-            return (getEnableAudioOnStart(), nil)
-            
-        case "setEnableAudioOnStart":
-            if let newValue = message.body as? Bool {
-                setEnableAudioOnStart(value: newValue)
-                return (newValue, nil)
-            } else {
-                return (nil, "invalid value")
-            }
-            
-        default:
-            return (nil, "invalid method")
-        }
+        return (nil, nil)
     }
 
 }

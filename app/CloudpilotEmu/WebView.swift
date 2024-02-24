@@ -13,10 +13,7 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WK
     config.allowsInlineMediaPlayback = true
     config.preferences.javaScriptCanOpenWindowsAutomatically = true
     config.preferences.setValue(true, forKey: "standalone")
-    
-    if (getEnableAudioOnStart()) {
-        config.mediaTypesRequiringUserActionForPlayback = []
-    }
+    config.mediaTypesRequiringUserActionForPlayback = []
 
     if #available(iOS 15.4, *) {
         config.preferences.isSiteSpecificQuirksModeEnabled = false
@@ -34,10 +31,6 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WK
     let osVersion = UIDevice.current.systemVersion
     webView.configuration.applicationNameForUserAgent = "Safari/604.1"
     webView.customUserAgent = "Mozilla/5.0 (\(deviceModel); CPU \(deviceModel) OS \(osVersion.replacingOccurrences(of: ".", with: "_")) like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/\(osVersion) Mobile/15E148 Safari/604.1 PWAShell"
-
-    let userContentController = webView.configuration.userContentController
-    userContentController.addScriptMessageHandler(WKSMH, contentWorld: WKContentWorld.page, name: "getEnableAudioOnStart")
-    userContentController.addScriptMessageHandler(WKSMH, contentWorld: WKContentWorld.page, name: "setEnableAudioOnStart")
     
     webView.addObserver(NSO, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: NSKeyValueObservingOptions.new, context: nil)
     
