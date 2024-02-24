@@ -11,23 +11,21 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
     let config = WKWebViewConfiguration()
     let userContentController = WKUserContentController()
 
-
     config.userContentController = userContentController
-
     config.limitsNavigationsToAppBoundDomains = true;
     config.allowsInlineMediaPlayback = true
     config.preferences.javaScriptCanOpenWindowsAutomatically = true
     config.preferences.setValue(true, forKey: "standalone")
     config.mediaTypesRequiringUserActionForPlayback = []
     
+    if #available(iOS 15.4, *) {
+        config.preferences.isSiteSpecificQuirksModeEnabled = false
+    }
+    
     let webView = WKWebView(frame: calcWebviewFrame(webviewView: container), configuration: config)
     
     webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-
-    webView.isHidden = true;
-
     webView.navigationDelegate = WKND
-
     webView.scrollView.bounces = false
     webView.scrollView.contentInsetAdjustmentBehavior = .never
     webView.allowsBackForwardNavigationGestures = false
