@@ -41,13 +41,13 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         webviewView.addSubview(CloudpilotEmu.webView);
         
         CloudpilotEmu.webView.uiDelegate = self;
-        
+        CloudpilotEmu.webView.isHidden = true
         CloudpilotEmu.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
     
     
     func reloadWebview() {
-        CloudpilotEmu.webView.load(URLRequest(url: SceneDelegate.universalLinkToLaunch ?? SceneDelegate.shortcutLinkToLaunch ?? getRootUrl()))
+        CloudpilotEmu.webView.load(URLRequest(url: getRootUrl()))
     }
     
     @objc func loadRootUrl() {
