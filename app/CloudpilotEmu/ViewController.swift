@@ -41,9 +41,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         webviewView.addSubview(CloudpilotEmu.webView);
         
         CloudpilotEmu.webView.uiDelegate = self;
-        CloudpilotEmu.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         
-        enterLoadingMode()
+        CloudpilotEmu.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }
     
     
@@ -55,9 +54,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         reloadWebview()
         
         NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in
-            self.reloadWebview()
-            self.enterLoadingMode()
-            }
+            self.reloadWebview()}
         )
     }
     
@@ -92,12 +89,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             }
         }
     }
-        
-    func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
-        enterLoadingMode()
-    }
     
-    func enterLoadingMode() {
+    func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         if (!htmlIsLoaded) {
             return
         }
