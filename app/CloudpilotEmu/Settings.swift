@@ -14,3 +14,11 @@ let rootUrlPreview = URL(string: "https://cloudpilot-emu.github.io/app-preview")
 func getRootUrl() -> URL {
     return UserDefaults.standard.bool(forKey: "USE_PREVIEW_BUILD") ? rootUrlPreview : rootUrlStable
 }
+
+func getEnableAudioOnStart() -> Bool {
+    return UserDefaults.standard.bool(forKey: "enableAudioOnStart")
+}
+
+func setEnableAudioOnStart(value: Bool) {
+    UserDefaults.standard.set(value, forKey: "enableAudioOnStart")
+}

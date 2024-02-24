@@ -6,18 +6,18 @@ import SafariServices
 private var downloadDir: URL?
 private var downloads: Dictionary<WKDownload, URL> = [:];
 
-func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> WKWebView{
-
+func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> WKWebView{
     let config = WKWebViewConfiguration()
-    let userContentController = WKUserContentController()
-
-    config.userContentController = userContentController
+    
     config.limitsNavigationsToAppBoundDomains = true;
     config.allowsInlineMediaPlayback = true
     config.preferences.javaScriptCanOpenWindowsAutomatically = true
     config.preferences.setValue(true, forKey: "standalone")
-    config.mediaTypesRequiringUserActionForPlayback = []
     
+    if (getEnableAudioOnStart()) {
+        config.mediaTypesRequiringUserActionForPlayback = []
+    }
+
     if #available(iOS 15.4, *) {
         config.preferences.isSiteSpecificQuirksModeEnabled = false
     }
@@ -35,6 +35,10 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandler, WKND: WKNav
     webView.configuration.applicationNameForUserAgent = "Safari/604.1"
     webView.customUserAgent = "Mozilla/5.0 (\(deviceModel); CPU \(deviceModel) OS \(osVersion.replacingOccurrences(of: ".", with: "_")) like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/\(osVersion) Mobile/15E148 Safari/604.1 PWAShell"
 
+    let userContentController = webView.configuration.userContentController
+    userContentController.addScriptMessageHandler(WKSMH, contentWorld: WKContentWorld.page, name: "getEnableAudioOnStart")
+    userContentController.addScriptMessageHandler(WKSMH, contentWorld: WKContentWorld.page, name: "setEnableAudioOnStart")
+    
     webView.addObserver(NSO, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: NSKeyValueObservingOptions.new, context: nil)
     
     if #available(iOS 16.4, *) {

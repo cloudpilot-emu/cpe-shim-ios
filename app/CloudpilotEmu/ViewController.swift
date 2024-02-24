@@ -17,6 +17,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     
     var htmlIsLoaded = false
     var isAnimatingConnectionProblem = false
+    var currentRoot = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,13 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     
     
     func reloadWebview() {
+        let newRoot = getRootUrl()
+        
+        if (currentRoot == newRoot.absoluteString) {
+            return
+        }
+        currentRoot = newRoot.absoluteString
+        
         CloudpilotEmu.webView.load(URLRequest(url: getRootUrl()))
     }
     
@@ -148,7 +156,27 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
 }
 
-extension ViewController: WKScriptMessageHandler {
-  func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-  }
+extension ViewController: WKScriptMessageHandlerWithReply, WKScriptMessageHandler {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        
+    }
+    
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) async -> (Any?, String?) {
+        switch (message.name) {
+        case "getEnableAudioOnStart":
+            return (getEnableAudioOnStart(), nil)
+            
+        case "setEnableAudioOnStart":
+            if let newValue = message.body as? Bool {
+                setEnableAudioOnStart(value: newValue)
+                return (newValue, nil)
+            } else {
+                return (nil, "invalid value")
+            }
+            
+        default:
+            return (nil, "invalid method")
+        }
+    }
+
 }
