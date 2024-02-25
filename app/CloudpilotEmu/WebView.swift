@@ -19,6 +19,10 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WK
         config.preferences.isSiteSpecificQuirksModeEnabled = false
     }
     
+    if #available(iOS 17.0, *) {
+        config.preferences.inactiveSchedulingPolicy = .suspend
+    }
+    
     let webView = WKWebView(frame: calcWebviewFrame(webviewView: container), configuration: config)
     
     webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
