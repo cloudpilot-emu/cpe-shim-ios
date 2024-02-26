@@ -16,6 +16,34 @@
 			<key>DefaultValue</key>
 			<false/>
 		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Version</string>
+			<key>Key</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Version</string>
+			<key>DefaultValue</key>
+			<string>0.0</string>
+			<key>Key</key>
+			<string>INFO_MARKETING_VERSION</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Build</string>
+			<key>DefaultValue</key>
+			<string>0.0</string>
+			<key>Key</key>
+			<string>INFO_BUILD_VERSION</string>
+		</dict>
 	</array>
 </dict>
 </plist>
