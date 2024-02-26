@@ -20,7 +20,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Version</string>
+			<string>App Version</string>
 			<key>Key</key>
 			<string></string>
 		</dict>
