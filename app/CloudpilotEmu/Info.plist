@@ -36,7 +36,7 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Capture Audio by user request</string>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen.storyboard</string>
+	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>
