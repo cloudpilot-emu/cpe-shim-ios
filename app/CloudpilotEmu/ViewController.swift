@@ -22,10 +22,13 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     override func viewDidLoad() {
         super.viewDidLoad()
         initWebView()
-        loadRootUrl()
+        reloadWebview()
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification , object: nil)
         
+        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in
+            self.reloadWebview()}
+        )
     }
 
     override func viewDidLayoutSubviews() {
@@ -47,23 +50,15 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
     
     
-    func reloadWebview() {
+    func reloadWebview(force: Bool = false) {
         let newRoot = getRootUrl()
         
-        if (currentRoot == newRoot.absoluteString) {
+        if (currentRoot == newRoot.absoluteString && !force) {
             return
         }
         currentRoot = newRoot.absoluteString
         
-        CloudpilotEmu.webView.load(URLRequest(url: getRootUrl()))
-    }
-    
-    @objc func loadRootUrl() {
-        reloadWebview()
-        
-        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in
-            self.reloadWebview()}
-        )
+        CloudpilotEmu.webView.load(URLRequest(url: getRootUrl(), cachePolicy: force ? .returnCacheDataElseLoad : .useProtocolCachePolicy))
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
@@ -91,7 +86,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             setProgress(0.0, true);
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                self.loadRootUrl();
+                self.reloadWebview(force: true);
             }
         }
     }
