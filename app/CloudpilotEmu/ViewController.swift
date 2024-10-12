@@ -3,9 +3,14 @@ import WebKit
 
 var webView: WKWebView! = nil
 
+enum LoadingMode {
+    case defaultCachePolicy
+    case forceCache
+}
+
 class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteractionControllerDelegate {
     
-    var documentController: UIDocumentInteractionController?
+    private var documentController: UIDocumentInteractionController?
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
         return self
     }
@@ -15,9 +20,10 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     @IBOutlet weak var connectionProblemView: UIImageView!
     @IBOutlet weak var webviewView: UIView!
     
-    var htmlIsLoaded = false
-    var isAnimatingConnectionProblem = false
-    var currentRoot = ""
+    private var htmlIsLoaded = false
+    private var isAnimatingConnectionProblem = false
+    private var currentRoot = ""
+    private var loadingMode = LoadingMode.defaultCachePolicy
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,7 +56,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
     
     
-    func reloadWebview(force: Bool = false) {
+    func reloadWebview(force: Bool = false, loadingMode: LoadingMode = LoadingMode.defaultCachePolicy) {
         let newRoot = getRootUrl()
         
         if (currentRoot == newRoot.absoluteString && !force) {
@@ -58,7 +64,15 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         }
         currentRoot = newRoot.absoluteString
         
-        CloudpilotEmu.webView.load(URLRequest(url: getRootUrl(), cachePolicy: force ? .returnCacheDataElseLoad : .useProtocolCachePolicy))
+        switch (loadingMode) {
+        case LoadingMode.defaultCachePolicy:
+            CloudpilotEmu.webView.load(URLRequest(url: newRoot, cachePolicy: .useProtocolCachePolicy))
+            
+        case LoadingMode.forceCache:
+            CloudpilotEmu.webView.load(URLRequest(url: newRoot, cachePolicy: .returnCacheDataElseLoad))
+        }
+
+        self.loadingMode = loadingMode
     }
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!){
@@ -78,13 +92,21 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
         htmlIsLoaded = false;
         
-        if (error as NSError)._code != (-999) {
-            webView.isHidden = true;
-            loadingView.isHidden = false;
-            animateConnectionProblem(true);
-            
-            setProgress(0.0, true);
+        if ((error as NSError).code == -999) {
+            return
+        }
 
+        webView.isHidden = true;
+        loadingView.isHidden = false;
+        
+        if (loadingMode == LoadingMode.defaultCachePolicy) {
+            DispatchQueue.main.async {
+                self.reloadWebview(force: true, loadingMode: LoadingMode.forceCache)
+            }
+        } else {
+            animateConnectionProblem(true);
+            setProgress(0.0, true);
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 self.reloadWebview(force: true);
             }
