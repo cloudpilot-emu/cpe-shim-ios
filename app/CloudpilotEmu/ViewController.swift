@@ -66,10 +66,10 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         
         switch (loadingMode) {
         case LoadingMode.defaultCachePolicy:
-            CloudpilotEmu.webView.load(URLRequest(url: newRoot, cachePolicy: .useProtocolCachePolicy))
+            CloudpilotEmu.webView.load(URLRequest(url: newRoot, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 3))
             
         case LoadingMode.forceCache:
-            CloudpilotEmu.webView.load(URLRequest(url: newRoot, cachePolicy: .returnCacheDataElseLoad))
+            CloudpilotEmu.webView.load(URLRequest(url: newRoot, cachePolicy: .returnCacheDataElseLoad, timeoutInterval: 10))
         }
 
         self.loadingMode = loadingMode
