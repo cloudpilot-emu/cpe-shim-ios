@@ -16,6 +16,12 @@
 		6D45CAEC7CC80E0D428769A1 /* Pods_CloudpilotEmu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61E4F923BAABFD50B5F050 /* Pods_CloudpilotEmu.framework */; };
 		CDC0FE292388222C002C8D56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC0FE252388222B002C8D56 /* Main.storyboard */; };
 		CDC0FE2A2388222C002C8D56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC0FE272388222B002C8D56 /* LaunchScreen.storyboard */; };
+		E02EF7F82CCAE69100D6C23D /* networkBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02EF7F52CCAE69100D6C23D /* networkBackend.cpp */; };
+		E02EF7F92CCAE69100D6C23D /* NetworkSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02EF7F72CCAE69100D6C23D /* NetworkSession.cpp */; };
+		E02EF8022CCAE6D400D6C23D /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF8012CCAE6D400D6C23D /* pb_encode.c */; };
+		E02EF8032CCAE6D400D6C23D /* pb_common.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF7FD2CCAE6D400D6C23D /* pb_common.c */; };
+		E02EF8042CCAE6D400D6C23D /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF7FF2CCAE6D400D6C23D /* pb_decode.c */; };
+		E02EF8072CCAE6ED00D6C23D /* networking.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF8062CCAE6ED00D6C23D /* networking.pb.c */; };
 		E03939302B85DF3400D8BC00 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E039392F2B85DF3400D8BC00 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +39,21 @@
 		CDC0FE262388222B002C8D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CloudpilotEmu/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CDC0FE282388222B002C8D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CloudpilotEmu/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE61E4F923BAABFD50B5F050 /* Pods_CloudpilotEmu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudpilotEmu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E02EF7F42CCAE69100D6C23D /* networkBackend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = networkBackend.h; path = "CloudpilotEmu/network-backend/networkBackend.h"; sourceTree = SOURCE_ROOT; };
+		E02EF7F52CCAE69100D6C23D /* networkBackend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = networkBackend.cpp; path = "CloudpilotEmu/network-backend/networkBackend.cpp"; sourceTree = SOURCE_ROOT; };
+		E02EF7F62CCAE69100D6C23D /* NetworkSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NetworkSession.h; path = "CloudpilotEmu/network-backend/NetworkSession.h"; sourceTree = SOURCE_ROOT; };
+		E02EF7F72CCAE69100D6C23D /* NetworkSession.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = NetworkSession.cpp; path = "CloudpilotEmu/network-backend/NetworkSession.cpp"; sourceTree = SOURCE_ROOT; };
+		E02EF7FB2CCAE6D400D6C23D /* pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pb.h; path = "CloudpilotEmu/network-backend/nanopb/pb.h"; sourceTree = SOURCE_ROOT; };
+		E02EF7FC2CCAE6D400D6C23D /* pb_common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pb_common.h; path = "CloudpilotEmu/network-backend/nanopb/pb_common.h"; sourceTree = SOURCE_ROOT; };
+		E02EF7FD2CCAE6D400D6C23D /* pb_common.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pb_common.c; path = "CloudpilotEmu/network-backend/nanopb/pb_common.c"; sourceTree = SOURCE_ROOT; };
+		E02EF7FE2CCAE6D400D6C23D /* pb_decode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pb_decode.h; path = "CloudpilotEmu/network-backend/nanopb/pb_decode.h"; sourceTree = SOURCE_ROOT; };
+		E02EF7FF2CCAE6D400D6C23D /* pb_decode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pb_decode.c; path = "CloudpilotEmu/network-backend/nanopb/pb_decode.c"; sourceTree = SOURCE_ROOT; };
+		E02EF8002CCAE6D400D6C23D /* pb_encode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = pb_encode.h; path = "CloudpilotEmu/network-backend/nanopb/pb_encode.h"; sourceTree = SOURCE_ROOT; };
+		E02EF8012CCAE6D400D6C23D /* pb_encode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pb_encode.c; path = "CloudpilotEmu/network-backend/nanopb/pb_encode.c"; sourceTree = SOURCE_ROOT; };
+		E02EF8052CCAE6ED00D6C23D /* networking.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = networking.pb.h; path = "CloudpilotEmu/network-backend/proto/networking.pb.h"; sourceTree = SOURCE_ROOT; };
+		E02EF8062CCAE6ED00D6C23D /* networking.pb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = networking.pb.c; path = "CloudpilotEmu/network-backend/proto/networking.pb.c"; sourceTree = SOURCE_ROOT; };
 		E039392F2B85DF3400D8BC00 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = CloudpilotEmu/Settings.bundle; sourceTree = "<group>"; };
+		E0CFE7332CCAE82000A69CB3 /* CloudpilotEmu-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CloudpilotEmu-Bridging-Header.h"; path = "CloudpilotEmu/CloudpilotEmu-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +88,8 @@
 		CD89F880237E9D9200C436A1 = {
 			isa = PBXGroup;
 			children = (
+				E0CFE7332CCAE82000A69CB3 /* CloudpilotEmu-Bridging-Header.h */,
+				E02EF7F32CCAE64800D6C23D /* network-backend */,
 				595F23A225CEFBFE0053416C /* AppDelegate.swift */,
 				595F239C25CEFBFD0053416C /* Assets.xcassets */,
 				E039392F2B85DF3400D8BC00 /* Settings.bundle */,
@@ -82,6 +104,26 @@
 				90E46E861CB86F5FAF46BED9 /* Frameworks */,
 				59333BAA25CFF706003392A4 /* CloudpilotEmu.app */,
 			);
+			sourceTree = "<group>";
+		};
+		E02EF7F32CCAE64800D6C23D /* network-backend */ = {
+			isa = PBXGroup;
+			children = (
+				E02EF8052CCAE6ED00D6C23D /* networking.pb.h */,
+				E02EF8062CCAE6ED00D6C23D /* networking.pb.c */,
+				E02EF7FB2CCAE6D400D6C23D /* pb.h */,
+				E02EF7FC2CCAE6D400D6C23D /* pb_common.h */,
+				E02EF7FD2CCAE6D400D6C23D /* pb_common.c */,
+				E02EF7FE2CCAE6D400D6C23D /* pb_decode.h */,
+				E02EF7FF2CCAE6D400D6C23D /* pb_decode.c */,
+				E02EF8002CCAE6D400D6C23D /* pb_encode.h */,
+				E02EF8012CCAE6D400D6C23D /* pb_encode.c */,
+				E02EF7F42CCAE69100D6C23D /* networkBackend.h */,
+				E02EF7F52CCAE69100D6C23D /* networkBackend.cpp */,
+				E02EF7F62CCAE69100D6C23D /* NetworkSession.h */,
+				E02EF7F72CCAE69100D6C23D /* NetworkSession.cpp */,
+			);
+			path = "network-backend";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,7 +161,7 @@
 				TargetAttributes = {
 					CD89F888237E9D9200C436A1 = {
 						CreatedOnToolsVersion = 11.2.1;
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1600;
 					};
 				};
 			};
@@ -208,6 +250,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E02EF7F82CCAE69100D6C23D /* networkBackend.cpp in Sources */,
+				E02EF8022CCAE6D400D6C23D /* pb_encode.c in Sources */,
+				E02EF8072CCAE6ED00D6C23D /* networking.pb.c in Sources */,
+				E02EF8032CCAE6D400D6C23D /* pb_common.c in Sources */,
+				E02EF8042CCAE6D400D6C23D /* pb_decode.c in Sources */,
+				E02EF7F92CCAE69100D6C23D /* NetworkSession.cpp in Sources */,
 				595F23AD25CEFBFE0053416C /* AppDelegate.swift in Sources */,
 				595F23A525CEFBFE0053416C /* Settings.swift in Sources */,
 				595F23AC25CEFBFE0053416C /* ViewController.swift in Sources */,
@@ -364,7 +412,7 @@
 			baseConfigurationReference = BEE8E5C625AE96C07F8AADED /* Pods-CloudpilotEmu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CloudpilotEmu/Entitlements/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
@@ -380,6 +428,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
+				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -388,6 +437,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "CloudpilotEmu/CloudpilotEmu-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
@@ -399,7 +449,7 @@
 			baseConfigurationReference = 4C1C2162A8048FDF52B2A9D0 /* Pods-CloudpilotEmu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CloudpilotEmu/Entitlements/Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -414,6 +464,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
+				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -422,6 +473,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "CloudpilotEmu/CloudpilotEmu-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Osize";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2,6";
