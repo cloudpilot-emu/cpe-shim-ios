@@ -3,12 +3,11 @@ import WebKit
 
 var webView: WKWebView! = nil
 
-enum LoadingMode {
-    case defaultCachePolicy
-    case forceCache
-}
-
 class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteractionControllerDelegate {
+    enum LoadingMode {
+        case defaultCachePolicy
+        case forceCache
+    }
     
     private var documentController: UIDocumentInteractionController?
     func documentInteractionControllerViewControllerForPreview(_ controller: UIDocumentInteractionController) -> UIViewController {
@@ -50,7 +49,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         CloudpilotEmu.webView = createWebView(container: webviewView, WKSMH: self, WKND: self, NSO: self, VC: self)
         webviewView.addSubview(CloudpilotEmu.webView);
         
-        CloudpilotEmu.webView.uiDelegate = self;
+        CloudpilotEmu.webView.uiDelegate = self
         CloudpilotEmu.webView.isHidden = true
         CloudpilotEmu.webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
     }

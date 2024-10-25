@@ -3,8 +3,8 @@ import WebKit
 import AuthenticationServices
 import SafariServices
 
-private var downloadDir: URL?
-private var downloads: Dictionary<WKDownload, URL> = [:];
+fileprivate var downloadDir: URL?
+fileprivate var downloads: Dictionary<WKDownload, URL> = [:];
 
 func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> WKWebView{
     let config = WKWebViewConfiguration()
