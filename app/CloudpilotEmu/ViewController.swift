@@ -2,6 +2,7 @@ import UIKit
 import WebKit
 
 var webView: WKWebView! = nil
+var javascriptApiController: JavaScriptApiController! = nil
 
 class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteractionControllerDelegate {
     enum LoadingMode {
@@ -46,7 +47,10 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
     
     func initWebView() {
-        CloudpilotEmu.webView = createWebView(container: webviewView, WKSMH: self, WKND: self, NSO: self, VC: self)
+        let (webView, javascriptApiController) = createWebView(container: webviewView, WKSMH: self, WKND: self, NSO: self, VC: self)
+        CloudpilotEmu.webView = webView
+        CloudpilotEmu.javascriptApiController = javascriptApiController
+        
         webviewView.addSubview(CloudpilotEmu.webView);
         
         CloudpilotEmu.webView.uiDelegate = self

@@ -6,7 +6,7 @@ import SafariServices
 fileprivate var downloadDir: URL?
 fileprivate var downloads: Dictionary<WKDownload, URL> = [:];
 
-func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> WKWebView{
+func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> (webView: WKWebView, javascriptApiController: JavaScriptApiController){
     let config = WKWebViewConfiguration()
     
     config.limitsNavigationsToAppBoundDomains = true;
@@ -22,6 +22,11 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WK
     if #available(iOS 17.0, *) {
         config.preferences.inactiveSchedulingPolicy = .suspend
     }
+    
+    config.userContentController = WKUserContentController()
+    let javascriptApiController = JavaScriptApiController()
+
+    config.userContentController.addScriptMessageHandler(javascriptApiController, contentWorld: WKContentWorld.page, name: "nativeCall")
     
     let webView = WKWebView(frame: calcWebviewFrame(webviewView: container), configuration: config)
     
@@ -45,7 +50,7 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WK
     downloadDir = setupDownloadsDirectory()
     print("temporary download area is \(getDownloadDir().path)")
     
-    return webView
+    return (webView, javascriptApiController)
 }
 
 func getDownloadDir() -> URL {
