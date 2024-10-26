@@ -30,6 +30,8 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WK
     
     let webView = WKWebView(frame: calcWebviewFrame(webviewView: container), configuration: config)
     
+    javascriptApiController.webView = webView
+    
     webView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     webView.navigationDelegate = WKND
     webView.scrollView.bounces = false
