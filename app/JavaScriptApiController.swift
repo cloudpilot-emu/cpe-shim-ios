@@ -1,19 +1,19 @@
 import WebKit
 
-fileprivate var globalApiContoller: JavaScriptApiController? = nil
+fileprivate var globalApiConrtoller: JavaScriptApiController? = nil
 
 class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
     weak var webView: WKWebView?
     
     override init() {
         super.init()
-        globalApiContoller = self
+        globalApiConrtoller = self
                 
         let rpcResultCb: net_RpcResultCb = {(sessionId, data, len, context) in
             let rpcData = Array(UnsafeBufferPointer(start: data, count: len)) as NSArray
             
             DispatchQueue.main.async() {
-                globalApiContoller?.dispatchCall(type: "netRpcResult", payload: ["rpcData": rpcData])
+                globalApiConrtoller?.dispatchCall(type: "netRpcResult", payload: ["rpcData": rpcData])
             }
         }
         
