@@ -1,24 +1,23 @@
 import WebKit
 
-fileprivate var globalApiConrtoller: JavaScriptApiController? = nil
+fileprivate var globalApiController: JavaScriptApiController? = nil
 
 class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
     weak var webView: WKWebView?
     
     override init() {
         super.init()
-        globalApiConrtoller = self
+        globalApiController = self
                 
         let rpcResultCb: net_RpcResultCb = {(sessionId, data, len, context) in
             let rpcData = Array(UnsafeBufferPointer(start: data, count: len)) as NSArray
             
             DispatchQueue.main.async() {
-                globalApiConrtoller?.dispatchCall(type: "netRpcResult", payload: ["rpcData": rpcData])
+                globalApiController?.dispatchCall(type: "netRpcResult", payload: ["rpcData": rpcData, "sessionId": sessionId as NSNumber])
             }
         }
         
         net_setRpcCallback(rpcResultCb, nil)
-        
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @MainActor (Any?, String?) -> Void) {
@@ -28,7 +27,7 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
             return
         }
         
-        guard let type = request.object(forKey: "method") as? NSString else {
+        guard let type = request.object(forKey: "type") as? NSString else {
             replyHandler(nil, "bad API request: missing type")
             return
         }
@@ -57,8 +56,8 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
                 return
             }
         
-            net_dispatchRpc(sessionId.uint32Value, rpcData, rpcData.count)
-            replyHandler(nil, nil)
+            let dispatchRpcResult = net_dispatchRpc(sessionId.uint32Value, rpcData, rpcData.count) as NSNumber
+            replyHandler(dispatchRpcResult, nil)
             
         default:
             replyHandler(nil, "invalid type: \(type)")
