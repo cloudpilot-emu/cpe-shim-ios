@@ -83,7 +83,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         
         self.setProgress(1.0, true)
         self.animateConnectionProblem(false)
-        
+                
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
             CloudpilotEmu.webView.isHidden = false
             self.loadingView.isHidden = true
@@ -126,6 +126,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         self.htmlIsLoaded = false
         self.animateConnectionProblem(false)
         self.setProgress(0.0, false)
+        
+        net_closeAllSessions()
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
