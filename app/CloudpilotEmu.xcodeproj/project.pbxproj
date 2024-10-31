@@ -16,6 +16,7 @@
 		6D45CAEC7CC80E0D428769A1 /* Pods_CloudpilotEmu.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE61E4F923BAABFD50B5F050 /* Pods_CloudpilotEmu.framework */; };
 		CDC0FE292388222C002C8D56 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC0FE252388222B002C8D56 /* Main.storyboard */; };
 		CDC0FE2A2388222C002C8D56 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDC0FE272388222B002C8D56 /* LaunchScreen.storyboard */; };
+		E00925C52CD444EE000BC749 /* sockopt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E00925C42CD444EE000BC749 /* sockopt.cpp */; };
 		E02EF7F82CCAE69100D6C23D /* networkBackend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02EF7F52CCAE69100D6C23D /* networkBackend.cpp */; };
 		E02EF7F92CCAE69100D6C23D /* NetworkSession.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E02EF7F72CCAE69100D6C23D /* NetworkSession.cpp */; };
 		E02EF8022CCAE6D400D6C23D /* pb_encode.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF8012CCAE6D400D6C23D /* pb_encode.c */; };
@@ -23,6 +24,7 @@
 		E02EF8042CCAE6D400D6C23D /* pb_decode.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF7FF2CCAE6D400D6C23D /* pb_decode.c */; };
 		E02EF8072CCAE6ED00D6C23D /* networking.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF8062CCAE6ED00D6C23D /* networking.pb.c */; };
 		E03939302B85DF3400D8BC00 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E039392F2B85DF3400D8BC00 /* Settings.bundle */; };
+		E044D05E2CD2F38B006D5000 /* codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E044D05D2CD2F38B006D5000 /* codes.cpp */; };
 		E07F5C982CD228E000827DD0 /* JavaScriptApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07F5C972CD228E000827DD0 /* JavaScriptApiController.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +42,8 @@
 		CDC0FE262388222B002C8D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CloudpilotEmu/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CDC0FE282388222B002C8D56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = CloudpilotEmu/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE61E4F923BAABFD50B5F050 /* Pods_CloudpilotEmu.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudpilotEmu.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E00925C32CD444EE000BC749 /* sockopt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = sockopt.h; path = "CloudpilotEmu/network-backend/sockopt.h"; sourceTree = SOURCE_ROOT; };
+		E00925C42CD444EE000BC749 /* sockopt.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = sockopt.cpp; path = "CloudpilotEmu/network-backend/sockopt.cpp"; sourceTree = SOURCE_ROOT; };
 		E02EF7F42CCAE69100D6C23D /* networkBackend.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = networkBackend.h; path = "CloudpilotEmu/network-backend/networkBackend.h"; sourceTree = SOURCE_ROOT; };
 		E02EF7F52CCAE69100D6C23D /* networkBackend.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = networkBackend.cpp; path = "CloudpilotEmu/network-backend/networkBackend.cpp"; sourceTree = SOURCE_ROOT; };
 		E02EF7F62CCAE69100D6C23D /* NetworkSession.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NetworkSession.h; path = "CloudpilotEmu/network-backend/NetworkSession.h"; sourceTree = SOURCE_ROOT; };
@@ -54,6 +58,8 @@
 		E02EF8052CCAE6ED00D6C23D /* networking.pb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = networking.pb.h; path = "CloudpilotEmu/network-backend/proto/networking.pb.h"; sourceTree = SOURCE_ROOT; };
 		E02EF8062CCAE6ED00D6C23D /* networking.pb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = networking.pb.c; path = "CloudpilotEmu/network-backend/proto/networking.pb.c"; sourceTree = SOURCE_ROOT; };
 		E039392F2B85DF3400D8BC00 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = CloudpilotEmu/Settings.bundle; sourceTree = "<group>"; };
+		E044D05C2CD2F38B006D5000 /* codes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = codes.h; path = "CloudpilotEmu/network-backend/codes.h"; sourceTree = SOURCE_ROOT; };
+		E044D05D2CD2F38B006D5000 /* codes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = codes.cpp; path = "CloudpilotEmu/network-backend/codes.cpp"; sourceTree = SOURCE_ROOT; };
 		E07F5C972CD228E000827DD0 /* JavaScriptApiController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JavaScriptApiController.swift; path = CloudpilotEmu/JavaScriptApiController.swift; sourceTree = "<group>"; };
 		E0CFE7332CCAE82000A69CB3 /* CloudpilotEmu-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CloudpilotEmu-Bridging-Header.h"; path = "CloudpilotEmu/CloudpilotEmu-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -112,6 +118,10 @@
 		E02EF7F32CCAE64800D6C23D /* network-backend */ = {
 			isa = PBXGroup;
 			children = (
+				E00925C32CD444EE000BC749 /* sockopt.h */,
+				E00925C42CD444EE000BC749 /* sockopt.cpp */,
+				E044D05C2CD2F38B006D5000 /* codes.h */,
+				E044D05D2CD2F38B006D5000 /* codes.cpp */,
 				E02EF8052CCAE6ED00D6C23D /* networking.pb.h */,
 				E02EF8062CCAE6ED00D6C23D /* networking.pb.c */,
 				E02EF7FB2CCAE6D400D6C23D /* pb.h */,
@@ -253,7 +263,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E044D05E2CD2F38B006D5000 /* codes.cpp in Sources */,
 				E02EF7F82CCAE69100D6C23D /* networkBackend.cpp in Sources */,
+				E00925C52CD444EE000BC749 /* sockopt.cpp in Sources */,
 				E02EF8022CCAE6D400D6C23D /* pb_encode.c in Sources */,
 				E02EF8072CCAE6ED00D6C23D /* networking.pb.c in Sources */,
 				E02EF8032CCAE6D400D6C23D /* pb_common.c in Sources */,
