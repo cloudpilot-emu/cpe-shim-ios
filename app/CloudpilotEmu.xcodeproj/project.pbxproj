@@ -446,6 +446,7 @@
 				);
 				MARKETING_VERSION = 1.1;
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
+				OTHER_LDFLAGS = "-lresolv";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -483,6 +484,7 @@
 				);
 				MARKETING_VERSION = 1.1;
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
+				OTHER_LDFLAGS = "-lresolv";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
