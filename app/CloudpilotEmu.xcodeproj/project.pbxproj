@@ -434,7 +434,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 867NKG5SZS;
 				INFOPLIST_FILE = CloudpilotEmu/Info.plist;
@@ -444,7 +444,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = "1.2-pre1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
 				OTHER_LDFLAGS = "-lresolv";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
@@ -472,7 +472,7 @@
 				CODE_SIGN_ENTITLEMENTS = CloudpilotEmu/Entitlements/Entitlements.plist;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 867NKG5SZS;
 				INFOPLIST_FILE = CloudpilotEmu/Info.plist;
@@ -482,7 +482,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = "1.2-pre1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
 				OTHER_LDFLAGS = "-lresolv";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
