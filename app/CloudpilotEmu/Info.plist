@@ -31,6 +31,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Capture Video by user request</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>A PalmOS application is trying to access your local network.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Track current location by user request</string>
 	<key>NSMicrophoneUsageDescription</key>
