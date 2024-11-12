@@ -2,9 +2,15 @@ import WebKit
 
 fileprivate var globalApiController: JavaScriptApiController? = nil
 
+fileprivate let TIMEOUT_CONSENT_ALLOW: TimeInterval = 10 * 60
+fileprivate let TIMEOUT_CONSNET_DENY: TimeInterval = 5
+
 class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
     weak var webView: WKWebView?
     weak var networkingUIDelegate: NetworkingUIDelegate?
+    
+    var sessionConsent = false
+    var lastConsentQueryAt: TimeInterval = 0
     
     override init() {
         super.init()
@@ -25,7 +31,7 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
         networkingUIDelegate = delegate
     }
     
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @MainActor (Any?, String?) -> Void) {
+    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @escaping @MainActor (Any?, String?) -> Void) {
 
         guard let request = message.body as? NSDictionary else {
             replyHandler(nil, "bad API request: not an object")
@@ -39,8 +45,12 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
         
         switch (type) {
         case "netOpenSession":
-            networkingUIDelegate?.notifyNetworkSessionStart()
-            replyHandler(NSNumber(value: net_openSession()), nil)
+            checkConsent {
+                self.networkingUIDelegate?.notifyNetworkSessionStart()
+                replyHandler(NSNumber(value: net_openSession()), nil)
+            } onDeny: {
+                replyHandler(nil, "permission denied")
+            }
             
         case "netCloseSession":
             guard let sessionId = request.object(forKey: "sessionId") as? NSNumber else {
@@ -70,6 +80,35 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
         default:
             replyHandler(nil, "invalid type: \(type)")
             return
+        }
+    }
+    
+    private func checkConsent(onAllow: @escaping () -> Void, onDeny: @escaping () -> Void) {
+        let now = Date().timeIntervalSince1970
+        
+        if (sessionConsent && now - lastConsentQueryAt <= TIMEOUT_CONSENT_ALLOW) {
+            onAllow()
+            return
+        }
+        
+        if (!sessionConsent && now - lastConsentQueryAt <= TIMEOUT_CONSNET_DENY) {
+            onDeny()
+            return
+        }
+        
+        guard let networkingUIDelegate = self.networkingUIDelegate else {
+            onDeny()
+            return
+        }
+        
+        networkingUIDelegate.querySessionConsent{
+            self.lastConsentQueryAt = Date().timeIntervalSince1970
+            self.sessionConsent = true
+            onAllow()
+        } onDeny: {
+            self.lastConsentQueryAt = Date().timeIntervalSince1970
+            self.sessionConsent = false
+            onDeny()
         }
     }
     

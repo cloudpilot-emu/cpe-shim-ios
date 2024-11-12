@@ -187,7 +187,15 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
         view.makeToast("Network Session closed", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
     }
     
-    func toastPosition() -> CGPoint {
+    func querySessionConsent(onAllow: @escaping () -> Void, onDeny: @escaping () -> Void) {
+        let alert = UIAlertController(title: "Network access", message: "PalmOS is trying to access the network.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default){ _ in onAllow() })
+        alert.addAction(UIAlertAction(title: "Don't Allow", style: .cancel){ _ in onDeny() })
+        
+        self.present(alert, animated: true)
+    }
+    
+    private func toastPosition() -> CGPoint {
         return CGPoint(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 4 * 3)
     }
             
