@@ -25,6 +25,7 @@
 		E02EF8072CCAE6ED00D6C23D /* networking.pb.c in Sources */ = {isa = PBXBuildFile; fileRef = E02EF8062CCAE6ED00D6C23D /* networking.pb.c */; };
 		E03939302B85DF3400D8BC00 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E039392F2B85DF3400D8BC00 /* Settings.bundle */; };
 		E044D05E2CD2F38B006D5000 /* codes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E044D05D2CD2F38B006D5000 /* codes.cpp */; };
+		E07A66D22CE3DFA900816673 /* NetworkingUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07A66D12CE3DFA900816673 /* NetworkingUI.swift */; };
 		E07F5C982CD228E000827DD0 /* JavaScriptApiController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E07F5C972CD228E000827DD0 /* JavaScriptApiController.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +61,7 @@
 		E039392F2B85DF3400D8BC00 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Settings.bundle; path = CloudpilotEmu/Settings.bundle; sourceTree = "<group>"; };
 		E044D05C2CD2F38B006D5000 /* codes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = codes.h; path = "CloudpilotEmu/network-backend/codes.h"; sourceTree = SOURCE_ROOT; };
 		E044D05D2CD2F38B006D5000 /* codes.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = codes.cpp; path = "CloudpilotEmu/network-backend/codes.cpp"; sourceTree = SOURCE_ROOT; };
+		E07A66D12CE3DFA900816673 /* NetworkingUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkingUI.swift; path = CloudpilotEmu/NetworkingUI.swift; sourceTree = "<group>"; };
 		E07F5C972CD228E000827DD0 /* JavaScriptApiController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JavaScriptApiController.swift; path = CloudpilotEmu/JavaScriptApiController.swift; sourceTree = "<group>"; };
 		E0CFE7332CCAE82000A69CB3 /* CloudpilotEmu-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CloudpilotEmu-Bridging-Header.h"; path = "CloudpilotEmu/CloudpilotEmu-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,6 +98,7 @@
 		CD89F880237E9D9200C436A1 = {
 			isa = PBXGroup;
 			children = (
+				E07A66D12CE3DFA900816673 /* NetworkingUI.swift */,
 				E07F5C972CD228E000827DD0 /* JavaScriptApiController.swift */,
 				E0CFE7332CCAE82000A69CB3 /* CloudpilotEmu-Bridging-Header.h */,
 				E02EF7F32CCAE64800D6C23D /* network-backend */,
@@ -292,6 +295,7 @@
 				595F23AD25CEFBFE0053416C /* AppDelegate.swift in Sources */,
 				595F23A525CEFBFE0053416C /* Settings.swift in Sources */,
 				595F23AC25CEFBFE0053416C /* ViewController.swift in Sources */,
+				E07A66D22CE3DFA900816673 /* NetworkingUI.swift in Sources */,
 				595F23AF25CEFBFE0053416C /* WebView.swift in Sources */,
 				E07F5C982CD228E000827DD0 /* JavaScriptApiController.swift in Sources */,
 			);
@@ -455,6 +459,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 867NKG5SZS;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CloudpilotEmu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CloudpilotEmu;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -464,7 +469,10 @@
 				);
 				MARKETING_VERSION = "1.2-pre1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
-				OTHER_LDFLAGS = "$(inherited) -lresolv";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -493,6 +501,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 867NKG5SZS;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				INFOPLIST_FILE = CloudpilotEmu/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CloudpilotEmu;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -502,7 +511,10 @@
 				);
 				MARKETING_VERSION = "1.2-pre1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
-				OTHER_LDFLAGS = "$(inherited) -lresolv";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-lresolv",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";

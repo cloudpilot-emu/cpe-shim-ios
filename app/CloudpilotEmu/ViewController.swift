@@ -1,10 +1,11 @@
 import UIKit
 import WebKit
+import Toast_Swift
 
 var webView: WKWebView! = nil
 var javascriptApiController: JavaScriptApiController! = nil
 
-class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteractionControllerDelegate {
+class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteractionControllerDelegate, NetworkingUIDelegate{
     enum LoadingMode {
         case defaultCachePolicy
         case forceCache
@@ -27,6 +28,7 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ToastManager.shared.isQueueEnabled = false
         initWebView()
         reloadWebview()
     
@@ -47,7 +49,8 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     }
     
     func initWebView() {
-        let (webView, javascriptApiController) = createWebView(container: webviewView, WKSMH: self, WKND: self, NSO: self, VC: self)
+        let (webView, javascriptApiController) = createWebView(container: webviewView, WKND: self, NSO: self)
+        javascriptApiController.setNetworkingUIDelegate(self)
         CloudpilotEmu.webView = webView
         CloudpilotEmu.javascriptApiController = javascriptApiController
         
@@ -172,16 +175,23 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
             })
         }
     }
+    
+    func notifyNetworkSessionStart() {
+        view.hideAllToasts()
         
+        view.makeToast("Network Session started", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
+    }
+    
+    func notifyNetworkSessionEnd() {
+        view.hideAllToasts()
+        view.makeToast("Network Session closed", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
+    }
+    
+    func toastPosition() -> CGPoint {
+        return CGPoint(x: self.view.bounds.size.width / 2.0, y: self.view.bounds.size.height / 4 * 3)
+    }
+            
     deinit {
         CloudpilotEmu.webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
     }
-}
-
-extension ViewController: WKScriptMessageHandlerWithReply {
-    
-    func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) async -> (Any?, String?) {
-        return (nil, nil)
-    }
-
 }

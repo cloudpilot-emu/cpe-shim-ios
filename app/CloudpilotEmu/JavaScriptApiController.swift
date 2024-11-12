@@ -4,6 +4,7 @@ fileprivate var globalApiController: JavaScriptApiController? = nil
 
 class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
     weak var webView: WKWebView?
+    weak var networkingUIDelegate: NetworkingUIDelegate?
     
     override init() {
         super.init()
@@ -20,6 +21,10 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
         net_setRpcCallback(rpcResultCb, nil)
     }
     
+    func setNetworkingUIDelegate(_ delegate: NetworkingUIDelegate) {
+        networkingUIDelegate = delegate
+    }
+    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @MainActor (Any?, String?) -> Void) {
 
         guard let request = message.body as? NSDictionary else {
@@ -34,6 +39,7 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
         
         switch (type) {
         case "netOpenSession":
+            networkingUIDelegate?.notifyNetworkSessionStart()
             replyHandler(NSNumber(value: net_openSession()), nil)
             
         case "netCloseSession":
@@ -41,6 +47,8 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
                 replyHandler(nil, "invalid or missing session ID")
                 return
             }
+            
+            networkingUIDelegate?.notifyNetworkSessionEnd()
             
             net_closeSession(sessionId.uint32Value)
             replyHandler(nil, nil)

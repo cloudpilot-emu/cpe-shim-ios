@@ -6,7 +6,7 @@ import SafariServices
 fileprivate var downloadDir: URL?
 fileprivate var downloads: Dictionary<WKDownload, URL> = [:];
 
-func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WKND: WKNavigationDelegate, NSO: NSObject, VC: ViewController) -> (webView: WKWebView, javascriptApiController: JavaScriptApiController){
+func createWebView(container: UIView, WKND: WKNavigationDelegate, NSO: NSObject) -> (webView: WKWebView, javascriptApiController: JavaScriptApiController){
     let config = WKWebViewConfiguration()
     
     config.limitsNavigationsToAppBoundDomains = true;
