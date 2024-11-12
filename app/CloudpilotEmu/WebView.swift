@@ -48,7 +48,7 @@ func createWebView(container: UIView, WKSMH: WKScriptMessageHandlerWithReply, WK
     if #available(iOS 16.4, *) {
         webView.isInspectable = true
     }
-    
+        
     downloadDir = setupDownloadsDirectory()
     print("temporary download area is \(getDownloadDir().path)")
     

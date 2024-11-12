@@ -151,6 +151,7 @@
 				CD89F886237E9D9200C436A1 /* Frameworks */,
 				CD89F887237E9D9200C436A1 /* Resources */,
 				E00E77F82B8D40240003ED0F /* Add version to settings bundle */,
+				3A153FEF362C374C4BCBF4C4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -212,6 +213,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3A153FEF362C374C4BCBF4C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CloudpilotEmu/Pods-CloudpilotEmu-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CloudpilotEmu/Pods-CloudpilotEmu-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CloudpilotEmu/Pods-CloudpilotEmu-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B89912B620F184F6325F696D /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -446,7 +464,7 @@
 				);
 				MARKETING_VERSION = "1.2-pre1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
-				OTHER_LDFLAGS = "-lresolv";
+				OTHER_LDFLAGS = "$(inherited) -lresolv";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -484,7 +502,7 @@
 				);
 				MARKETING_VERSION = "1.2-pre1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
-				OTHER_LDFLAGS = "-lresolv";
+				OTHER_LDFLAGS = "$(inherited) -lresolv";
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";

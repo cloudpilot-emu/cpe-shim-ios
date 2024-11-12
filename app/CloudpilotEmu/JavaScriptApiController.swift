@@ -21,7 +21,7 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
     }
     
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage, replyHandler: @MainActor (Any?, String?) -> Void) {
-        
+
         guard let request = message.body as? NSDictionary else {
             replyHandler(nil, "bad API request: not an object")
             return
