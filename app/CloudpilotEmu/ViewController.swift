@@ -178,7 +178,6 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     
     func notifyNetworkSessionStart() {
         view.hideAllToasts()
-        
         view.makeToast("Network Session started", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
     }
     

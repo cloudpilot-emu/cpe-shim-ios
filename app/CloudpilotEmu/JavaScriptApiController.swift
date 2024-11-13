@@ -3,7 +3,7 @@ import WebKit
 fileprivate var globalApiController: JavaScriptApiController? = nil
 
 fileprivate let TIMEOUT_CONSENT_ALLOW: TimeInterval = 10 * 60
-fileprivate let TIMEOUT_CONSNET_DENY: TimeInterval = 5
+fileprivate let TIMEOUT_CONSENT_DENY: TimeInterval = 5
 
 class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
     weak var webView: WKWebView?
@@ -45,7 +45,7 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
         
         switch (type) {
         case "netOpenSession":
-            checkConsent {
+            checkNetworkSessionConsent {
                 self.networkingUIDelegate?.notifyNetworkSessionStart()
                 replyHandler(NSNumber(value: net_openSession()), nil)
             } onDeny: {
@@ -83,7 +83,7 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
         }
     }
     
-    private func checkConsent(onAllow: @escaping () -> Void, onDeny: @escaping () -> Void) {
+    private func checkNetworkSessionConsent(onAllow: @escaping () -> Void, onDeny: @escaping () -> Void) {
         let now = Date().timeIntervalSince1970
         
         if (sessionConsent && now - lastConsentQueryAt <= TIMEOUT_CONSENT_ALLOW) {
@@ -91,7 +91,7 @@ class JavaScriptApiController :  NSObject, WKScriptMessageHandlerWithReply {
             return
         }
         
-        if (!sessionConsent && now - lastConsentQueryAt <= TIMEOUT_CONSNET_DENY) {
+        if (!sessionConsent && now - lastConsentQueryAt <= TIMEOUT_CONSENT_DENY) {
             onDeny()
             return
         }
