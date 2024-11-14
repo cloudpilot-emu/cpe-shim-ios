@@ -454,7 +454,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CloudpilotEmu/Entitlements/Entitlements.plist;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -467,8 +467,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.2-pre1";
+				MARKETING_VERSION = "1.2-beta1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
+				"OTHER_CPLUSPLUSFLAGS[arch=*]" = (
+					"$(OTHER_CFLAGS)",
+					"-DNETWORK_BACKEND_LOGGING",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-lresolv",
@@ -476,7 +480,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AdHoc Pinchies new";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CloudpilotEmu Dev";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -496,7 +500,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = CloudpilotEmu/Entitlements/Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = "";
@@ -509,7 +513,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = "1.2-pre1";
+				MARKETING_VERSION = "1.2-beta1";
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -518,7 +522,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "io.github.cloudpilot-emu";
 				PRODUCT_NAME = CloudpilotEmu;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AdHoc Pinchies new";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "CloudpilotEmu Dev";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

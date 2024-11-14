@@ -178,12 +178,12 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     
     func notifyNetworkSessionStart() {
         view.hideAllToasts()
-        view.makeToast("Network Session started", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
+        view.makeToast("Network session started", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
     }
     
     func notifyNetworkSessionEnd() {
         view.hideAllToasts()
-        view.makeToast("Network Session closed", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
+        view.makeToast("Network session closed", duration: 1.5, point: toastPosition(), title: nil, image: nil, completion: nil)
     }
     
     func querySessionConsent(onAllow: @escaping () -> Void, onDeny: @escaping () -> Void) {
