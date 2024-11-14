@@ -5,6 +5,17 @@ import Toast_Swift
 var webView: WKWebView! = nil
 var javascriptApiController: JavaScriptApiController! = nil
 
+extension UserDefaults {
+    @objc dynamic var USE_PREVIEW_BUILD: Bool {
+        get {
+            self.bool(forKey: "USE_PREVIEW_BUILD")
+        }
+        set {
+            self.set(newValue, forKey: "USE_PREVIEW_BUILD")
+        }
+    }
+}
+
 class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteractionControllerDelegate, NetworkingUIDelegate{
     enum LoadingMode {
         case defaultCachePolicy
@@ -26,17 +37,17 @@ class ViewController: UIViewController, WKNavigationDelegate, UIDocumentInteract
     private var currentRoot = ""
     private var loadingMode = LoadingMode.defaultCachePolicy
     
+    private var usePreviewBuildObservation: NSKeyValueObservation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ToastManager.shared.isQueueEnabled = false
         initWebView()
         reloadWebview()
+        
+        usePreviewBuildObservation = UserDefaults.standard.observe(\.USE_PREVIEW_BUILD, options: [.new, .old], changeHandler: {(defaults, change) in self.reloadWebview()})
     
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification , object: nil)
-        
-        NotificationCenter.default.addObserver(forName: UserDefaults.didChangeNotification, object: nil, queue: OperationQueue.main, using: {notification in
-            self.reloadWebview()}
-        )
     }
 
     override func viewDidLayoutSubviews() {
