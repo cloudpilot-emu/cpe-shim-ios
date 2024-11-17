@@ -112,6 +112,23 @@ class JavaScriptApiController: NSObject, WKScriptMessageHandlerWithReply {
                 net_dispatchRpc(sessionId.uint32Value, rpcData, rpcData.count)
                 as NSNumber
             replyHandler(dispatchRpcResult, nil)
+            
+        case "clipboardRead":
+            let data = (UIPasteboard.general.hasStrings ? UIPasteboard.general.string : nil) ?? ""
+            
+            replyHandler(data, nil)
+            
+        case "clipboardWrite":
+            guard
+                let data = request.object(forKey: "data") as? String
+            else {
+                replyHandler(nil, "invalid or missing clipboardData")
+                return
+            }
+            
+            UIPasteboard.general.string = data
+            
+            replyHandler(nil, nil)
 
         default:
             replyHandler(nil, "invalid type: \(type)")
