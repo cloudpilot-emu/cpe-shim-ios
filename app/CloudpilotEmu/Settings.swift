@@ -4,13 +4,14 @@ import WebKit
 // This should also appear in Info.plist
 let allowedOrigins: [String] = ["cloudpilot-emu.github.io"]
 
-
 // UI options
-let displayMode = "standalone" // standalone / fullscreen.
+let displayMode = "standalone"  // standalone / fullscreen.
 
 let rootUrlStable = URL(string: "https://cloudpilot-emu.github.io/app")!
-let rootUrlPreview = URL(string: "https://cloudpilot-emu.github.io/app-preview")!
+let rootUrlPreview = URL(
+    string: "https://cloudpilot-emu.github.io/app-preview")!
 
 func getRootUrl() -> URL {
-    return UserDefaults.standard.bool(forKey: "USE_PREVIEW_BUILD") ? rootUrlPreview : rootUrlStable
+    return UserDefaults.standard.bool(forKey: "USE_PREVIEW_BUILD")
+        ? rootUrlPreview : rootUrlStable
 }

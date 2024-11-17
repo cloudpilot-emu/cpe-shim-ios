@@ -11,7 +11,7 @@ class JavaScriptApiController: NSObject, WKScriptMessageHandlerWithReply {
 
     var sessionConsent = false
     var lastConsentQueryAt: TimeInterval = 0
-    
+
     var willEnterForegroundObserver: NSObjectProtocol?
 
     override init() {
@@ -37,13 +37,16 @@ class JavaScriptApiController: NSObject, WKScriptMessageHandlerWithReply {
             forName: UIApplication.willEnterForegroundNotification, object: nil,
             queue: .main
         ) { [weak self] _ in
-            self?.webView?.callAsyncJavaScript("window.__cpeLastResume = Date.now();", in: nil, in: WKContentWorld.page)
+            self?.webView?.callAsyncJavaScript(
+                "window.__cpeLastResume = Date.now();", in: nil,
+                in: WKContentWorld.page)
         }
     }
-    
+
     deinit {
         if let willEnterForegroundObserver = willEnterForegroundObserver {
-            NotificationCenter.default.removeObserver(willEnterForegroundObserver)
+            NotificationCenter.default.removeObserver(
+                willEnterForegroundObserver)
         }
     }
 

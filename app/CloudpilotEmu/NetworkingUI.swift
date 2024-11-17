@@ -1,6 +1,7 @@
-protocol NetworkingUIDelegate : AnyObject {
+protocol NetworkingUIDelegate: AnyObject {
     func notifyNetworkSessionStart()
     func notifyNetworkSessionEnd()
-    
-    func querySessionConsent(onAllow: @escaping () -> Void, onDeny: @escaping () -> Void)
+
+    func querySessionConsent(
+        onAllow: @escaping () -> Void, onDeny: @escaping () -> Void)
 }
