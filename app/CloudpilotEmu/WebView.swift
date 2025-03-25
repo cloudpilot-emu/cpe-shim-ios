@@ -375,6 +375,10 @@ extension ViewController: WKUIDelegate, WKDownloadDelegate {
 
         let controller = UIActivityViewController(
             activityItems: [fileUrl], applicationActivities: nil)
+
+        controller.popoverPresentationController?.sourceView = self.webviewView
+        controller.popoverPresentationController?.sourceRect = CGRect(x: 10, y: 30, width: 10, height: 10)
+
         present(controller, animated: true)
     }
 }
