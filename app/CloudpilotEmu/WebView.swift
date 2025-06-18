@@ -47,7 +47,7 @@ func createWebView(container: UIView, WKND: WKNavigationDelegate, NSO: NSObject)
     let osVersion = UIDevice.current.systemVersion
     webView.configuration.applicationNameForUserAgent = "Safari/604.1"
     webView.customUserAgent =
-        "Mozilla/5.0 (\(deviceModel); CPU \(deviceModel) OS \(osVersion.replacingOccurrences(of: ".", with: "_")) like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/\(osVersion) Mobile/15E148 Safari/604.1 PWAShell cpe-native-api-2"
+        "Mozilla/5.0 (\(deviceModel); CPU \(deviceModel) OS \(osVersion.replacingOccurrences(of: ".", with: "_")) like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/\(osVersion) Mobile/15E148 Safari/604.1 PWAShell cpe-native-api-3"
 
     webView.addObserver(
         NSO, forKeyPath: #keyPath(WKWebView.estimatedProgress),

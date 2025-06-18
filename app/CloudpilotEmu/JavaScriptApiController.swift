@@ -129,6 +129,28 @@ class JavaScriptApiController: NSObject, WKScriptMessageHandlerWithReply {
             UIPasteboard.general.string = data
             
             replyHandler(nil, nil)
+            
+        case "setWorkerRegistered":
+            guard
+                let workerRegistered = request.object(forKey: "workerRegistered") as? Bool
+            else {
+                replyHandler(nil, "invalid or missing isRegistered")
+                return
+            }
+            
+            if (workerRegistered != getWorkerRegistered()) {
+                setWorkerRegistered(workerRegistered)
+                setWorkerFailed(false)
+            }
+            
+            replyHandler(NSNull(), nil)
+            
+        case "getWorkerFailed":
+            replyHandler(getWorkerFailed() as NSNumber, nil)
+            
+        case "clearWorkerFailed":
+            setWorkerFailed(false)
+            replyHandler(NSNull(), nil)
 
         default:
             replyHandler(nil, "invalid type: \(type)")

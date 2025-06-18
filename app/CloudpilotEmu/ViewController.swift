@@ -147,7 +147,11 @@ class ViewController: UIViewController, WKNavigationDelegate,
         } else {
             animateConnectionProblem(true)
             setProgress(0.0, true)
-
+            
+            if (getWorkerRegistered()) {
+                setWorkerFailed(true)
+            }
+                
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 self.reloadWebview(force: true)
             }
