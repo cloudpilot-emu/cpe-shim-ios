@@ -469,7 +469,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
 				"OTHER_CPLUSPLUSFLAGS[arch=*]" = (
 					"$(OTHER_CFLAGS)",
@@ -513,7 +513,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4;
+				MARKETING_VERSION = 1.5;
 				"OTHER_CFLAGS[arch=*]" = "-ICloudpilotEmu/network-backend/nanopb";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
